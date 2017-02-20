@@ -1,0 +1,21 @@
+{
+  "name": "apich-js",
+  "version": "0.0.1",
+  "author": {
+    "name": "Anton Karpov",
+    "email": "karpoff@bk.ru"
+  },
+  "description": "Simple framework for testing js-based API",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "request": "^2.79.0"
+  },
+  "keywords": [
+    "test",
+    "api",
+    "assert",
+    "testing"
+  ],
+  "license": "MIT",
+  "main": "./index"
+}
