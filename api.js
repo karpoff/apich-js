@@ -4,7 +4,6 @@ chai.should();
 
 const shared = require('./shared');
 const config = require('./').config;
-const okapi = require('./');
 
 class Request {
     constructor(url, options) {

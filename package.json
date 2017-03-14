@@ -1,10 +1,7 @@
 {
   "name": "apich-js",
   "version": "0.0.1",
-  "author": {
-    "name": "Anton Karpov",
-    "email": "karpoff@bk.ru"
-  },
+  "author": "Anton Karpov <karpoff@bk.ru>",
   "description": "Simple framework for testing js-based API",
   "dependencies": {
     "chai": "^3.5.0",
@@ -17,5 +14,16 @@
     "testing"
   ],
   "license": "MIT",
-  "main": "./index"
+  "main": "./index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karpoff/apich-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karpoff/apich-js/issues"
+  },
+  "homepage": "https://github.com/karpoff/apich-js#readme"
 }

@@ -32,6 +32,12 @@ const addTestByName = name => {
         tests.push(name);
 };
 
+const addSetToSet = (setA, setB) => {
+    for (let elem of setB) {
+        setA.add(elem);
+    }
+}
+
 const addTest = (fullName, chain = []) => {
     if (testMap.has(fullName))
         return;
@@ -51,13 +57,17 @@ const addTest = (fullName, chain = []) => {
     if (!testData)
         throw new Error("invalid test name " + fullName);
     let before = testData.before || [];
+    let beforeComplete = new Set(before);
 
     for (let beforeTest of before) {
+        if (beforeTest.indexOf(".") === -1)
+            beforeTest = suiteName + "." + beforeTest;
         addTest(beforeTest, chain.concat([fullName]));
+        addSetToSet(beforeComplete, testMap.get(beforeTest).before);
     }
 
     let test = new (_config.testClass)(fullName, testData);
-    testMap.set(fullName, test);
+    testMap.set(fullName, { test, before: beforeComplete, status: "pending" });
     tests.push(fullName);
 };
 
@@ -66,15 +76,30 @@ const runTest = () => {
         return;
 
     let testName = tests.shift();
-    let test = testMap.get(testName);
+    let testData = testMap.get(testName);
+
+    for (let parentName of Array.from(testData.before)) {
+        let parentTest = testMap.get(parentName);
+        if (parentTest && parentTest.failed) {
+            console.error(testName + " suppressed");
+            runTest();
+            return;
+        }
+    }
+    let test = testData.test;
+
     test.passed(() => {
         test.end();
 
         if (test.error) {
+            testData.failed = true;
+            console.error(testName + " failed");
             console.error(test.error);
         } else {
-            runTest();
+            console.log(testName + " passed");
         }
+
+        runTest();
     });
 
     test.run({

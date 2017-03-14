@@ -52,7 +52,6 @@ class Test {
         try {
             this._testData = new (this.getTestDataClass())(this, options);
 
-            console.log("executing test case " + this._name);
             this._data.run(this._testData);
 
             this._events.emit("request");
@@ -86,7 +85,6 @@ class Test {
                     this._events.emit("passed");
                 });
         } else {
-            console.log(this._name + " passed");
             this._events.emit("passed");
         }
     }
